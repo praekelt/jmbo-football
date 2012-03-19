@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<div class="team-players-widget">
+
+<div class="title">{% trans "Players" %}</div>
+
+{% if players %}
+<ul>
+    {% for player in players %}
+        <li><a href="{{ player.get_absolute_url }}">{{ player.title }}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+</div>

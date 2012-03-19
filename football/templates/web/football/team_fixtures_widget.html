@@ -1,0 +1,40 @@
+{% load i18n %}
+
+<div class="team-fixtures-widget">
+
+<div class="title">{% trans "Fixtures" %}</div>
+
+{% if fixtures %}
+<table>
+    {% regroup fixtures by datetime.date as day_list %}
+    {% for day in day_list %} 
+        <tr>
+            <th colspan="3">{{ day.grouper|date:"d F Y" }}</th>
+        </tr>
+        {% for obj in day.list %}
+            <tr>
+                <td width="43%" align="right"><a href="{{ obj.home_team.get_absolute_url }}">{{ obj.home_team.title }}</a></td>
+                <td width="14%" align="center"><strong>vs</strong><br />{{ obj.datetime|date:"H:i" }}</td>
+                <td width="43%" align="left"><a href="{{ obj.away_team.get_absolute_url }}">{{ obj.away_team.title }}</a></td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+</table>
+{% else %}
+    <p class="none">{% blocktrans %}No fixtures for this week{% endblocktrans %}</p>
+{% endif %}
+
+<div class="pagination">
+    {% if previous_week_start %}
+        <a href="?team_slug={{ team.slug }}&amp;week_start={{ previous_week_start|date:"Y-m-d" }}" class="prev">{% trans "From" %} {{ previous_week_start|date:"d F" }}</a>
+    {% else %}
+        &nbsp;
+    {% endif %}
+    {% if next_week_start %}
+        <a href="?team_slug={{ team.slug }}&amp;week_start={{ next_week_start|date:"Y-m-d" }}" class="next">{% trans "From" %} {{ next_week_start|date:"d F" }}</a>
+    {% else %}
+        &nbsp;
+    {% endif %}
+</div>
+
+</div>

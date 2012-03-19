@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="content league-logs">
+
+<div class="title">{% trans "Logs" %}</div>
+
+<div class="items">
+{% for obj in leagues %}
+    <div class="item {% if league == obj %}active{% endif %} {% if forloop.first %}first{% endif %} {% if forloop.last %}last{% endif %}">
+        <a href="?league_slug={{ obj.slug }}">{{ obj.title }}</a>
+    </div>
+{% endfor %}
+</div>
+
+<table cellspacing="0">
+{% regroup league.logentries by group as group_list %}
+{% for group in group_list %} 
+    {% if group.grouper %}
+        <tr class="group">
+            <td colspan="8">{{ group.grouper.title }}</td>
+        </tr>
+    {% endif %}
+    <tr>
+        <th></th>
+        <th>{% trans "Team" %}</th>
+        <th>{% trans "P" %}</th>
+        <th>{% trans "W" %}</th>
+        <th>{% trans "D" %}</th>
+        <th>{% trans "L" %}</th>
+        <th>{% trans "G" %}</th>
+        <th>{% trans "PTS" %}</th>
+    </tr>
+    {% for obj in group.list %}    
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{{ obj.team.get_absolute_url }}">{{ obj.team.title }}</a></td>
+            <td>{{ obj.played }}</td>
+            <td>{{ obj.won }}</td>
+            <td>{{ obj.drawn }}</td>
+            <td>{{ obj.lost }}</td>
+            <td>{{ obj.goals }}</td>
+            <td>{{ obj.points }}</td>
+        </tr>
+    {% endfor %}
+{% endfor %}
+</table>
+
+</div>
+{% endblock %}

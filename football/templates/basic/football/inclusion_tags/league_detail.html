@@ -1,0 +1,18 @@
+{% load i18n jmbo_inclusion_tags %}
+
+<div class="object-detail-inclusion league-detail-inclusion">
+    {% if not 'img' in object.content %}
+        <img src="{{ object.get_post_large_url }}" width="269" height="151" alt="" />
+    {% endif %}
+
+    {% if object.team_set.all.exists %}
+    <div class="teams">
+        <label>{% trans "Teams" %}</label>
+        {% for object in object.player_set.all %}
+            <div class="item {% if forloop.first %}first{% endif %} {% if forloop.last %}last{% endif %}">
+                {% render_object object.as_leaf_class "list_item_ipod" %}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>

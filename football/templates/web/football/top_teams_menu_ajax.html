@@ -1,0 +1,14 @@
+{% load foundry_tags %}
+
+{% get_listing_queryset 'top-teams' as 'teams' %}
+{% if teams.exists %}
+<div class="dropdown">
+    <span class="arrow"></span>
+    <ul>
+    {% for team in teams %}
+        <li><a href="{{ team.get_absolute_url }}">{{ team.title }}</a></li>
+    {% endfor %}
+    </ul>
+
+</div>
+{% endif %}

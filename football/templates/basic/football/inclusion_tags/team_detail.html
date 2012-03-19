@@ -1,0 +1,57 @@
+{% load i18n jmbo_inclusion_tags jmbo_template_tags foundry_tags %}
+
+<div class="object-detail-inclusion team-detail-inclusion">
+    {% if not 'img' in object.info %}
+        <img src="{{ object.image_detail_url }}" alt="" />
+    {% endif %}
+
+    {% if object.info %}
+        {{ object.info|safe }}
+    {% endif %}
+
+    <div class="clear"></div> 
+
+    {% if object.history %}
+        <div class="history">
+            <label>{% trans "History" %}</label>
+            {{ object.history|safe }}
+        </div>
+    {% endif %}
+
+    {% if object.statistics %}
+        <div class="statistics">
+            <label>{%trans "Statistics" %}</label>
+            {{ object.statistics|safe }}
+        </div>
+    {% endif %}
+
+    {% comment %}
+    {% if object.player_set.all.exists %}
+    <div class="players">
+        <label>{%trans "Players" %}</label>
+        <div class="foundry-container foundry-listing-horizontal">
+        <div class="items">
+        {% for object in object.player_set.all %}
+            <div class="item {% if forloop.first %}first{% endif %} {% if forloop.last %}last{% endif %} item-{{ object.class_name|lower }}">
+                {% render_object object "list_item_ipod" %}
+            </div>
+        {% endfor %}
+        </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% get_relation_list 'team_galleries' for object as 'team_galleries' %}
+    {% if team_galleries %}
+    <div class="galleries">
+        <label>{%trans "Galleries" %}</label>
+        {% for object in team_galleries %}
+            <div class="item {% if forloop.first %}first{% endif %} {% if forloop.last %}last{% endif %}">
+                {% render_object object "list_item_ipod" %}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endcomment %}
+
+</div>

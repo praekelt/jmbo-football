@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load i18n jmbo_inclusion_tags %}
+
+{% block content %}
+<div class="league-dashboard">
+
+    <div class="title">
+        {{ object.title }}
+    </div>
+
+    <div class="foundry-container foundry-listing-vertical-thumbnail">
+        <div class="items">
+        {% for object in related_object_list_top %}
+            <div class="item">
+                {% render_object object.as_leaf_class "list_item_thumbnail" %}
+            </div>                
+        {% endfor %}
+        </div>
+    </div>
+
+    <div class="foundry-container foundry-listing-vertical">
+        <div class="items">
+        {% for object in related_object_list %}
+            <div class="item">
+                {% render_object object.as_leaf_class "list_item" %}
+            </div>                
+        {% endfor %}
+        </div>
+    </div>
+
+    <div class="foundry-container foundry-menu">
+        <div class="title">{% trans "More" %} {{ object.title }}</div>
+        <div class="items">
+            <div class="item">
+                <a href="{% url league-results %}?league_slug={{ object.slug }}">{% trans "Results" %}</a>
+            </div>
+            <div class="item">
+                <a href="{% url league-fixtures %}?league_slug={{ object.slug }}">{% trans "Fixtures" %}</a>
+            </div>
+            <div class="item">
+                <a href="{% url league-logs %}?league_slug={{ object.slug }}">{% trans "Table" %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

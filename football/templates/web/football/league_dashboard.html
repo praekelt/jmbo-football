@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load i18n jmbo_inclusion_tags %}
+
+{% block content %}
+<div class="league-dashboard">
+
+    <div class="title">
+        {{ object.title }}
+    </div>
+
+    <table>
+    <tr>
+    <td>
+    <div class="foundry-container foundry-listing-horizontal">
+        {% for object in related_object_list %}
+            <div class="item">
+                {% render_object object.as_leaf_class "list_item_ipod" %}
+            </div>                
+        {% endfor %}
+    </div>
+    </td>
+
+    <td>
+    <div class="foundry-container foundry-listing-horizontal">    
+        <div class="item auto-height foundry-enable-ajax" 
+             original_url="{% url league-results-widget object.slug %}">
+            {{ results|safe }}
+        </div>                
+        <div class="item auto-height foundry-enable-ajax"
+             original_url="{% url league-fixtures-widget object.slug %}">
+            {{ fixtures|safe }}
+        </div>                
+    </div>
+    </td>
+
+    <td>
+    <div class="foundry-container foundry-listing-horizontal">    
+        <div class="item auto-height">
+            {{ logs|safe }}
+        </div>                
+    </div>
+    </td>
+    </tr>
+    </table>
+
+</div>
+{% endblock %}

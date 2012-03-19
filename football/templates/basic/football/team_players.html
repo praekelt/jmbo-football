@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load i18n foundry_tags jmbo_inclusion_tags jmbo_template_tags pagination_tags %}
+
+{% block content %}
+<div class="team-players">
+
+    <div class="title">
+        {{ object.title }} {% trans "Players" %}
+    </div>
+
+    {% listing object.player_set.all '' 'Horizontal' %}
+    
+</div>
+{% endblock %}

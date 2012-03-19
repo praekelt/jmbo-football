@@ -1,0 +1,18 @@
+{% load i18n foundry_tags %}
+
+{% get_listing_queryset 'top-leagues' as 'leagues' %}
+{% if leagues.exists %}
+<div class="dropdown">
+    <span class="arrow"></span>
+    {% for league in leagues %}
+    <ul>
+        <li class="title"><a href="{{ league.get_absolute_url }}">{{ league.title }}</a></li>
+        <li><a href="{% url league-posts league.slug %}">{% trans "News" %}</a></li>
+        <li><a href="{% url league-galleries league.slug %}">{% trans "Galleries" %}</a></li>
+        <li><a href="{% url league-results %}?league_slug={{ league.slug }}">{% trans "Results" %}</a></li>
+        <li><a href="{% url league-fixtures %}?league_slug={{ league.slug }}">{% trans "Fixtures" %}</a></li>
+        <li><a href="{% url league-logs %}?league_slug={{ league.slug }}">{% trans "Table" %}</a></li>
+    </ul>
+    {% endfor %}
+</div>
+{% endif %}

@@ -1,0 +1,29 @@
+{% load i18n foundry_tags %}
+
+{% get_listing_queryset 'second-tier-leagues' as 'leagues' %}
+{% if leagues.exists %}
+<div class="dropdown">
+    <span class="arrow"></span>
+    {% for league in leagues %}
+    <ul>
+        <li class="title"><a href="{{ league.get_absolute_url }}">{{ league.title }}</a></li>
+        <li><a href="{% url league-posts league.slug %}">{% trans "News" %}</a></li>
+        <li><a href="{% url league-galleries league.slug %}">{% trans "Galleries" %}</a></li>
+        <li><a href="{% url league-results %}?league_slug={{ league.slug }}">{% trans "Results" %}</a></li>
+        <li><a href="{% url league-fixtures %}?league_slug={{ league.slug }}">{% trans "Fixtures" %}</a></li>
+        <li><a href="{% url league-logs %}?league_slug={{ league.slug }}">{% trans "Table" %}</a></li>
+    </ul>
+    {% endfor %}
+
+    {% get_listing_queryset 'other-leagues' as 'other_leagues' %}
+    {% if other_leagues %}
+        <ul>
+            <li class="title"><a href="/listing/leagues/">{% trans "More" %}</a></li>
+            {% for league in other_leagues %}
+                <li><a href="{{ league.get_absolute_url }}">{{ league.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</div>
+{% endif %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="content league-results">
+
+<div class="title">{% trans "Results" %}</div>
+
+<div class="items">
+{% for obj in leagues %}
+    <div class="item {% if league == obj %}active{% endif %} {% if forloop.first %}first{% endif %} {% if forloop.last %}last{% endif %}">
+        <a href="?league_slug={{ obj.slug }}">{{ obj.title }}</a>
+    </div>
+{% endfor %}
+</div>
+
+{% if fixtures %}
+<table>
+    {% regroup fixtures by datetime.date as day_list %}
+    {% for day in day_list %} 
+        <tr>
+            <th colspan="3">{{ day.grouper|date:"d F Y" }}</th>
+        </tr>
+        {% for obj in day.list %}
+            <tr>
+                <td width="43%" align="right" nowrap><a href="{{ obj.home_team.get_absolute_url }}">{{ obj.home_team.title }}</a> {{ obj.home_score }}</td>
+                <td width="14%" align="center"><strong>vs</strong><br />{{ obj.datetime|date:"H:i" }}</td>
+                <td width="43%" align="left" nowrap><a href="{{ obj.away_team.get_absolute_url }}">{{ obj.away_team.title }}</a> {{ obj.away_score }}</td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+</table>
+{% else %}
+    {% blocktrans %}No results for this week{% endblocktrans %}
+{% endif %}
+
+<div class="pagination">
+    {% if previous_week_start %}
+        <a href="?league_slug={{ league.slug }}&amp;week_start={{ previous_week_start|date:"Y-m-d" }}" class="prev">{% trans "From" %} {{ previous_week_start|date:"d F" }}</a>
+    {% else %}
+        &nbsp;
+    {% endif %}
+    {% if next_week_start %}
+        <a href="?league_slug={{ league.slug }}&amp;week_start={{ next_week_start|date:"Y-m-d" }}" class="next">{% trans "From" %} {{ next_week_start|date:"d F" }}</a>
+    {% else %}
+        &nbsp;
+    {% endif %}
+</div>
+
+</div>
+{% endblock %}

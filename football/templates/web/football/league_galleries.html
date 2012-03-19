@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load i18n jmbo_inclusion_tags jmbo_template_tags %}
+
+{% block content %}
+<div class="league-galleries">
+
+    <div class="title">
+        {{ object.title }} {% trans "Galleries" %}
+    </div>
+
+    <div class="foundry-container foundry-listing-horizontal">
+        {% get_relation_list 'league_galleries' for object as 'object_list' %}
+        {% for object in object_list %}
+            <div class="item">
+                {% render_object object.as_leaf_class "list_item_ipod" %}
+            </div>                
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

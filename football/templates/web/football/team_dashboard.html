@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load i18n jmbo_inclusion_tags %}
+
+{% block content %}
+<div class="team-dashboard">
+
+    <div class="title">
+        {{ object.title }}
+        <p>
+            {{ object.description }}&nbsp;<a href="/jmbo/content/detail/{{ object.slug }}">{% trans "Read more" %}...</a>
+        <p/>
+    </div>
+
+    <table>
+    <tr>
+    <td class="first">
+    <div class="foundry-container foundry-listing-horizontal">
+        {% for object in related_object_list %}
+            <div class="item">
+                {% render_object object.as_leaf_class "list_item_ipod" %}
+            </div>                
+        {% endfor %}
+    </div>
+    </td>
+
+    <td>
+    <div class="foundry-container foundry-listing-horizontal">    
+        <div class="item auto-height foundry-enable-ajax" 
+             original_url="{% url team-results-widget object.slug %}">
+            {{ results|safe }}
+        </div>                
+        <div class="item auto-height foundry-enable-ajax"
+             original_url="{% url team-fixtures-widget object.slug %}">
+            {{ fixtures|safe }}
+        </div>                
+        <div class="item auto-height foundry-enable-ajax"
+             original_url="{% url team-players-widget object.slug %}">
+            {{ players|safe }}
+        </div>                
+    </div>
+    </td>
+
+    </tr>
+    </table>
+
+</div>
+{% endblock %}

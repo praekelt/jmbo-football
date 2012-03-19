@@ -1,0 +1,38 @@
+{% load i18n %}
+
+<div class="league-logs league-logs-widget">
+
+<table cellspacing="0">
+{% regroup league.logentries by group as group_list %}
+{% for group in group_list %} 
+    {% if group.grouper %}
+        <tr class="group">
+            <td colspan="8">{{ group.grouper.title }}</td>
+        </tr>
+    {% endif %}
+    <tr>
+        <th></th>
+        <th>{% trans "Team" %}</th>
+        <th>{% trans "P" %}</th>
+        <th>{% trans "W" %}</th>
+        <th>{% trans "D" %}</th>
+        <th>{% trans "L" %}</th>
+        <th>{% trans "G" %}</th>
+        <th>{% trans "PTS" %}</th>
+    </tr>
+    {% for obj in group.list %}    
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{{ obj.team.get_absolute_url }}">{{ obj.team.title }}</a></td>
+            <td>{{ obj.played }}</td>
+            <td>{{ obj.won }}</td>
+            <td>{{ obj.drawn }}</td>
+            <td>{{ obj.lost }}</td>
+            <td>{{ obj.goals }}</td>
+            <td>{{ obj.points }}</td>
+        </tr>
+    {% endfor %}
+{% endfor %}
+</table>
+
+</div>
