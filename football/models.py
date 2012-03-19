@@ -23,7 +23,7 @@ class LeagueGroup(models.Model):
     )
 
     class Meta:
-        db_table = 'airtel_league_group'
+        db_table = 'airtel_leaguegroup'
 
     def __unicode__(self):
         if self.subtitle:
