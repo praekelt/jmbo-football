@@ -3,6 +3,7 @@ import datetime
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.db.models import Q
+from django.core.cache import cache
 
 from football.models import League, Team, Fixture
 
@@ -211,3 +212,16 @@ def team_dashboard_web(request, slug):
         players=team_players_widget(request, team.slug).content,
     )
     return render_to_response('football/team_dashboard.html', extra, context_instance=RequestContext(request))
+
+
+def live_scores(request):
+    extra = {}
+    live_scores = cache.get('FOOTALL_LIVE_SCORES')
+    if live_scores:
+        scores_array = []
+        for score in json.loads(live_scores):
+            if not score['LIVE']:
+                scores_array.append(score)                
+        extra = {'live_scores': scores_array}
+
+    return render_to_response('football/live_scores.html', extra, context_instance=RequestContext(request))

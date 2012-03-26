@@ -1,0 +1,7 @@
+{% load i18n %}
+
+{% if live_scores %}
+    <div class="live-scores-inclusion">
+	    {% trans "Live scores" %}:{% for score in live_scores %} <a href="{% url live-scores %}">{{ score.HOMETEAM }} {{ score.HOMETEAMSCORE }} : {{ score.AWAYTEAM }} {{ score.AWAYTEAMSCORE }}</a>{% endfor %}
+	</div>
+{% endif %}

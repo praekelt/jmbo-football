@@ -114,14 +114,11 @@ urlpatterns += patterns('',
         name='team-players'
     ),
 
-)   
-
-# Pre-empt url call since we want to disable view modifiers for post.
-urlpatterns.insert(1, 
     url(
-        r'^post/(?P<slug>[\w-]+)/$', 
-        'post.views.object_detail', 
-        {'view_modifier': []}, 
-        name='post_object_detail'
+        r'^live-scores/$', 
+        'football.views.live_scores', 
+        {}, 
+        name='live-scores'
     )
-)
+
+)   

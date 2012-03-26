@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% load i18n jmbo_inclusion_tags %}
+
+{% block content %}
+<div class="content live-scores">
+
+    <div class="title">
+        {% trans "Live scores" %}
+    </div>
+
+    {% for score in live_scores %}
+        <table>
+            <tr>
+                <th width="16%">{% trans "Teams" %}</th><td width="37%">{{ score.HOMETEAM }}</td><td width="37%">{{ score.AWAYTEAM }}</td>
+            </tr>
+            <tr>
+                <th>{% trans "Score" %}</th><td>{{ score.HOMETEAMSCORE }}</td><td>{{ score.AWAYTEAMSCORE }}</td>
+            </tr>
+            {% if score.HOMETEAMGOALS or score.AWAYTEAMGOALS %}
+                <tr>
+                    <th>{% trans "Goals" %}</th>
+                    <td>
+                        {% if score.HOMETEAMGOALS %}
+                            {% for goal in score.HOMETEAMGOALS %}
+                                {{ goal }} &nbsp;
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if score.AWAYTEAMGOALS %}
+                            {% for goal in score.AWAYTEAMGOALS %}
+                                {{ goal }} &nbsp;
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+            {% if score.HOMETEAMCARDS or score.AWAYTEAMCARDS %}
+            <tr>
+                <th>{% trans "Cards" %}</th>
+                <td>
+                    {% if score.HOMETEAMCARDS %}
+                        {% for card in score.HOMETEAMCARDS %}
+                            {{ card }} &nbsp;
+                        {% endfor %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if score.AWAYTEAMCARDS %}
+                        {% for card in score.AWAYTEAMCARDS %}
+                            {{ card }} &nbsp;
+                        {% endfor %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>{% trans "Match status" %}:</th><td colspan="2">{{ score.MATCHSTATUS }}</td>
+            </tr>
+        </table>
+        <br/>
+    {% endfor %}
+    
+</div>
+{% endblock %}
