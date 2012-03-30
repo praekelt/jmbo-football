@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load i18n jmbo_inclusion_tags jmbo_template_tags %}
+{% load i18n jmbo_inclusion_tags jmbo_template_tags foundry_tags %}
 
 {% block content %}
 <div class="league-posts">
@@ -9,14 +9,8 @@
         {{ object.title }} {% trans "News" %}
     </div>
 
-    <div class="foundry-container foundry-listing-horizontal">
-        {% get_relation_list 'post_leagues' for object as 'object_list' 'reverse' %}
-        {% for object in object_list %}
-            <div class="item">
-                {% render_object object.as_leaf_class "list_item_ipod" %}
-            </div>                
-        {% endfor %}
-    </div>
+    {% get_relation_list 'post_leagues' for object as 'posts' 'reverse' %}    
+    {% listing posts '' 'Horizontal' 6 %}
 
 </div>
 {% endblock %}
