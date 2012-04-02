@@ -10,7 +10,7 @@
     </div>
 
     {% get_relation_list 'league_galleries' for object as 'galleries' %}    
-    {% listing galleries '' 'Horizontal' 6 %}
+    {% listing galleries style='Horizontal' items_per_page=6 %}
 
 </div>
 {% endblock %}

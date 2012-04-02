@@ -10,7 +10,7 @@
     </div>
 
     {% get_relation_list 'post_leagues' for object as 'posts' 'reverse' %}    
-    {% listing posts '' 'Horizontal' 6 %}
+    {% listing posts style='Horizontal' items_per_page=6 %}
 
 </div>
 {% endblock %}
