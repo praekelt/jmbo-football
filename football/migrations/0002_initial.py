@@ -9,7 +9,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         
         # Adding model 'LeagueGroup'
-        db.create_table('airtel_league_group', (
+        db.create_table('football_leaguegroup', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=64)),
             ('subtitle', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
@@ -20,7 +20,7 @@ class Migration(SchemaMigration):
         db.send_create_signal('football', ['LeagueGroup'])
 
         # Adding model 'League'
-        db.create_table('airtel_league', (
+        db.create_table('football_league', (
             ('modelbase_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['jmbo.ModelBase'], unique=True, primary_key=True)),
             ('region', self.gf('django.db.models.fields.CharField')(max_length=32)),
             ('position', self.gf('django.db.models.fields.PositiveIntegerField')(default=0, db_index=True)),
@@ -30,15 +30,15 @@ class Migration(SchemaMigration):
         db.send_create_signal('football', ['League'])
 
         # Adding M2M table for field groups on 'League'
-        db.create_table('airtel_league_groups', (
+        db.create_table('football_league_groups', (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('league', models.ForeignKey(orm['football.league'], null=False)),
             ('leaguegroup', models.ForeignKey(orm['football.leaguegroup'], null=False))
         ))
-        db.create_unique('airtel_league_groups', ['league_id', 'leaguegroup_id'])
+        db.create_unique('football_league_groups', ['league_id', 'leaguegroup_id'])
 
         # Adding model 'Team'
-        db.create_table('airtel_team', (
+        db.create_table('football_team', (
             ('modelbase_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['jmbo.ModelBase'], unique=True, primary_key=True)),
             ('info', self.gf('ckeditor.fields.RichTextField')(null=True, blank=True)),
             ('history', self.gf('ckeditor.fields.RichTextField')(null=True, blank=True)),
@@ -48,15 +48,15 @@ class Migration(SchemaMigration):
         db.send_create_signal('football', ['Team'])
 
         # Adding M2M table for field leagues on 'Team'
-        db.create_table('airtel_team_leagues', (
+        db.create_table('football_team_leagues', (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('team', models.ForeignKey(orm['football.team'], null=False)),
             ('league', models.ForeignKey(orm['football.league'], null=False))
         ))
-        db.create_unique('airtel_team_leagues', ['team_id', 'league_id'])
+        db.create_unique('football_team_leagues', ['team_id', 'league_id'])
 
         # Adding model 'Fixture'
-        db.create_table('airtel_fixture', (
+        db.create_table('football_fixture', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('league', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['football.League'])),
             ('group', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['football.LeagueGroup'], null=True, blank=True)),
@@ -70,7 +70,7 @@ class Migration(SchemaMigration):
         db.send_create_signal('football', ['Fixture'])
 
         # Adding model 'LogEntry'
-        db.create_table('airtel_logentry', (
+        db.create_table('football_logentry', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('league', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['football.League'])),
             ('group', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['football.LeagueGroup'], null=True, blank=True)),
@@ -86,63 +86,63 @@ class Migration(SchemaMigration):
         db.send_create_signal('football', ['LogEntry'])
 
         # Adding unique constraint on 'LogEntry', fields ['league', 'team']
-        db.create_unique('airtel_logentry', ['league_id', 'team_id'])
+        db.create_unique('football_logentry', ['league_id', 'team_id'])
 
         # Adding model 'Trivia'
-        db.create_table('airtel_trivia', (
+        db.create_table('football_trivia', (
             ('modelbase_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['jmbo.ModelBase'], unique=True, primary_key=True)),
         ))
         db.send_create_signal('football', ['Trivia'])
 
         # Adding model 'Player'
-        db.create_table('airtel_player', (
+        db.create_table('football_player', (
             ('modelbase_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['jmbo.ModelBase'], unique=True, primary_key=True)),
         ))
         db.send_create_signal('football', ['Player'])
 
         # Adding M2M table for field teams on 'Player'
-        db.create_table('airtel_player_teams', (
+        db.create_table('football_player_teams', (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('player', models.ForeignKey(orm['football.player'], null=False)),
             ('team', models.ForeignKey(orm['football.team'], null=False))
         ))
-        db.create_unique('airtel_player_teams', ['player_id', 'team_id'])
+        db.create_unique('football_player_teams', ['player_id', 'team_id'])
 
 
     def backwards(self, orm):
         
         # Removing unique constraint on 'LogEntry', fields ['league', 'team']
-        db.delete_unique('airtel_logentry', ['league_id', 'team_id'])
+        db.delete_unique('football_logentry', ['league_id', 'team_id'])
 
         # Deleting model 'LeagueGroup'
-        db.delete_table('airtel_league_group')
+        db.delete_table('football_leaguegroup')
 
         # Deleting model 'League'
-        db.delete_table('airtel_league')
+        db.delete_table('football_league')
 
         # Removing M2M table for field groups on 'League'
-        db.delete_table('airtel_league_groups')
+        db.delete_table('football_league_groups')
 
         # Deleting model 'Team'
-        db.delete_table('airtel_team')
+        db.delete_table('football_team')
 
         # Removing M2M table for field leagues on 'Team'
-        db.delete_table('airtel_team_leagues')
+        db.delete_table('football_team_leagues')
 
         # Deleting model 'Fixture'
-        db.delete_table('airtel_fixture')
+        db.delete_table('football_fixture')
 
         # Deleting model 'LogEntry'
-        db.delete_table('airtel_logentry')
+        db.delete_table('football_logentry')
 
         # Deleting model 'Trivia'
-        db.delete_table('airtel_trivia')
+        db.delete_table('football_trivia')
 
         # Deleting model 'Player'
-        db.delete_table('airtel_player')
+        db.delete_table('football_player')
 
         # Removing M2M table for field teams on 'Player'
-        db.delete_table('airtel_player_teams')
+        db.delete_table('football_player_teams')
 
 
     models = {
@@ -197,7 +197,7 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         'football.fixture': {
-            'Meta': {'object_name': 'Fixture', 'db_table': "'airtel_fixture'"},
+            'Meta': {'object_name': 'Fixture'},
             'away_score': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'away_team': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'away_team'", 'to': "orm['football.Team']"}),
             'completed': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -209,7 +209,7 @@ class Migration(SchemaMigration):
             'league': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['football.League']"})
         },
         'football.league': {
-            'Meta': {'ordering': "('-created',)", 'object_name': 'League', 'db_table': "'airtel_league'", '_ormbases': ['jmbo.ModelBase']},
+            'Meta': {'ordering': "('-created',)", 'object_name': 'League', '_ormbases': ['jmbo.ModelBase']},
             'football365_ci': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True', 'null': 'True', 'blank': 'True'}),
             'football365_di': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True', 'null': 'True', 'blank': 'True'}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': "orm['football.LeagueGroup']", 'null': 'True', 'blank': 'True'}),
@@ -218,7 +218,7 @@ class Migration(SchemaMigration):
             'region': ('django.db.models.fields.CharField', [], {'max_length': '32'})
         },
         'football.leaguegroup': {
-            'Meta': {'object_name': 'LeagueGroup', 'db_table': "'airtel_league_group'"},
+            'Meta': {'object_name': 'LeagueGroup'},
             'football365_ci': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True', 'null': 'True', 'blank': 'True'}),
             'football365_di': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True', 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -227,7 +227,7 @@ class Migration(SchemaMigration):
             'title': ('django.db.models.fields.CharField', [], {'max_length': '64'})
         },
         'football.logentry': {
-            'Meta': {'unique_together': "(('league', 'team'),)", 'object_name': 'LogEntry', 'db_table': "'airtel_logentry'"},
+            'Meta': {'unique_together': "(('league', 'team'),)", 'object_name': 'LogEntry'},
             'drawn': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'goal_difference': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'goals': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
@@ -241,12 +241,12 @@ class Migration(SchemaMigration):
             'won': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'})
         },
         'football.player': {
-            'Meta': {'ordering': "('-created',)", 'object_name': 'Player', 'db_table': "'airtel_player'", '_ormbases': ['jmbo.ModelBase']},
+            'Meta': {'ordering': "('-created',)", 'object_name': 'Player', '_ormbases': ['jmbo.ModelBase']},
             'modelbase_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['jmbo.ModelBase']", 'unique': 'True', 'primary_key': 'True'}),
             'teams': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['football.Team']", 'symmetrical': 'False'})
         },
         'football.team': {
-            'Meta': {'ordering': "('title',)", 'object_name': 'Team', 'db_table': "'airtel_team'", '_ormbases': ['jmbo.ModelBase']},
+            'Meta': {'ordering': "('title',)", 'object_name': 'Team', '_ormbases': ['jmbo.ModelBase']},
             'football365_teamcode': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '64', 'null': 'True', 'blank': 'True'}),
             'history': ('ckeditor.fields.RichTextField', [], {'null': 'True', 'blank': 'True'}),
             'info': ('ckeditor.fields.RichTextField', [], {'null': 'True', 'blank': 'True'}),
@@ -255,7 +255,7 @@ class Migration(SchemaMigration):
             'statistics': ('ckeditor.fields.RichTextField', [], {'null': 'True', 'blank': 'True'})
         },
         'football.trivia': {
-            'Meta': {'ordering': "('-created',)", 'object_name': 'Trivia', 'db_table': "'airtel_trivia'", '_ormbases': ['jmbo.ModelBase']},
+            'Meta': {'ordering': "('-created',)", 'object_name': 'Trivia', '_ormbases': ['jmbo.ModelBase']},
             'modelbase_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['jmbo.ModelBase']", 'unique': 'True', 'primary_key': 'True'})
         },
         'jmbo.modelbase': {

@@ -22,9 +22,6 @@ class LeagueGroup(models.Model):
         null=True, blank=True, db_index=True
     )
 
-    class Meta:
-        db_table = 'airtel_leaguegroup'
-
     def __unicode__(self):
         if self.subtitle:
             return '%s (%s)' % (self.title, self.subtitle)
@@ -50,9 +47,6 @@ class League(ModelBase):
     )
     groups = models.ManyToManyField(LeagueGroup, null=True, blank=True)
 
-    class Meta:
-        db_table = 'airtel_league'
-
     @property
     def logentries(self):
         return self.logentry_set.all().order_by('group__position', '-points', '-goal_difference')
@@ -69,7 +63,6 @@ class Team(ModelBase):
 
     class Meta:
         ordering = ('title',)
-        db_table = 'airtel_team'
 
     @property
     def players(self):
@@ -85,9 +78,6 @@ class Fixture(models.Model):
     home_score = models.PositiveIntegerField(null=True, blank=True)
     away_score = models.PositiveIntegerField(null=True, blank=True)
     completed = models.BooleanField(default=False)
-
-    class Meta:
-        db_table = 'airtel_fixture'
 
     def __unicode__(self):
         return '%s vs. %s %s' % \
@@ -113,17 +103,9 @@ class LogEntry(models.Model):
     class Meta:
         unique_together = (('league', 'team'),)
         verbose_name_plural = 'Log Entries'
-        db_table = 'airtel_logentry'
-
 
 class Trivia(ModelBase):
-
-    class Meta:
-        db_table = 'airtel_trivia'
-
+    pass
 
 class Player(ModelBase):
     teams = models.ManyToManyField(Team)
-
-    class Meta:
-        db_table = 'airtel_player'

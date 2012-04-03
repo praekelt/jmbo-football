@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='jmbo-football',
-    version='0.0.3',
+    version='0.0.9',
     description='Football app for Jmbo.',
     long_description = open('README.rst', 'r').read() + open('AUTHORS.rst', 'r').read() + open('CHANGELOG.rst', 'r').read(),
     author='Praekelt Foundation',
@@ -12,6 +12,7 @@ setup(
     packages = find_packages(),
     install_requires = [
         'jmbo-foundry',
+        'lxml',
     ],
     include_package_data=True,
     tests_require=[

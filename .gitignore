@@ -4,3 +4,6 @@
 build/
 dist/
 *.swo
+.pydevproject
+.project
+.settings
