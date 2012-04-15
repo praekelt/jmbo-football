@@ -11,8 +11,9 @@ setup(
     url='http://github.com/praekelt/jmbo-football',
     packages = find_packages(),
     install_requires = [
-        'jmbo-foundry',
         'lxml',
+        'django-football365',
+        'jmbo-foundry',
     ],
     include_package_data=True,
     tests_require=[
