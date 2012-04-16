@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load i18n jmbo_inclusion_tags %}
+{% load i18n jmbo_inclusion_tags jmbo_template_tags foundry_tags %}
 
 {% block content %}
 <div class="league-dashboard">
@@ -28,6 +28,9 @@
         {% endfor %}
         </div>
     </div>
+
+    {% get_relation_list 'league_galleries' for object as 'galleries'%}
+    {% listing galleries title=_('Galleries') style='VerticalThumbnail' items_per_page=3 %}
 
     <div class="foundry-container foundry-menu">
         <div class="title">{% trans "More" %} {{ object.title }}</div>
