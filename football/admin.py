@@ -20,7 +20,10 @@ class LogEntryInline(admin.StackedInline):
 
 
 class LeagueAdmin(ModelBaseAdmin):   
-    #inlines = [FixtureInline, LogEntryInline]
+    # The inlines may lead to slow UI when there are many teams. Use django 
+    # simple autocomplete for teams to speed up the UI.
+    # todo: limit team vocabulary by filtering on league
+    inlines = [FixtureInline, LogEntryInline]
 
     def get_formsets(self, request, obj=None):
         # No fieldsets for a new object
