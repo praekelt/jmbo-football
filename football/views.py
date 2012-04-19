@@ -1,6 +1,7 @@
 import datetime
 from itertools import chain
 
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.db.models import Q
@@ -236,3 +237,13 @@ def live_scores(request):
         extra = {'live_scores': scores_array}
 
     return render_to_response('football/live_scores.html', extra, context_instance=RequestContext(request))
+
+def live_commentary(request):
+    import datetime
+    f = open('/tmp/commentary-%s' % datetime.datetime.now().strftime('%Y%m%d%H%M'), 'w')
+    try:
+        f.write(str(request))
+    finally:
+        f.close()
+    return HttpResponse('thank you')
+
