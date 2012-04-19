@@ -22,7 +22,7 @@ msgstr ""
 #: templates/web/football/more_leagues_menu_ajax.html:11
 #: templates/web/football/top_leagues_menu_ajax.html:11
 msgid "Galleries"
-msgstr ""
+msgstr "Galeries"
 
 #: templates/basic/football/league_dashboard.html:36
 #: templates/web/football/more_leagues_menu_ajax.html:21
@@ -51,7 +51,7 @@ msgstr "Rencontres"
 #: templates/web/football/more_leagues_menu_ajax.html:14
 #: templates/web/football/top_leagues_menu_ajax.html:14
 msgid "Table"
-msgstr ""
+msgstr "Liste"
 
 #: templates/basic/football/league_fixtures.html:35
 #: templates/web/football/league_fixtures_widget.html:24
@@ -72,11 +72,11 @@ msgstr "Non rencontres"
 #: templates/web/football/team_results_widget.html:29
 #: templates/web/football/team_results_widget.html:34
 msgid "From"
-msgstr ""
+msgstr "A partir de"
 
 #: templates/basic/football/league_logs.html:7
 msgid "Tables"
-msgstr ""
+msgstr "Classements"
 
 #: templates/basic/football/league_logs.html:27
 #: templates/web/football/league_logs_widget.html:15
@@ -117,38 +117,38 @@ msgstr "PTS"
 #: templates/web/football/league_results_widget.html:24
 #: templates/web/football/team_results_widget.html:24
 msgid "No results for this week"
-msgstr ""
+msgstr "Pas de résultats pour cette semaine"
 
 #: templates/basic/football/live_scores.html:9
 #: templates/basic/football/inclusion_tags/live_scores.html:5
 msgid "Live scores"
-msgstr ""
+msgstr "Marcuage en direct"
 
 #: templates/basic/football/live_scores.html:15
 #: templates/basic/football/inclusion_tags/league_detail.html:10
 msgid "Teams"
-msgstr ""
+msgstr "Les équipes"
 
 #: templates/basic/football/live_scores.html:18
 msgid "Score"
-msgstr ""
+msgstr "Marque"
 
 #: templates/basic/football/live_scores.html:22
 msgid "Goals"
-msgstr ""
+msgstr "Buts"
 
 #: templates/basic/football/live_scores.html:41
 msgid "Cards"
-msgstr ""
+msgstr "Cartes"
 
 #: templates/basic/football/live_scores.html:59
 msgid "Match status"
-msgstr ""
+msgstr "Statut du match"
 
 #: templates/basic/football/team_players.html:9
 #: templates/web/football/team_players_widget.html:5
 msgid "Players"
-msgstr ""
+msgstr "Les joueurs"
 
 #: templates/basic/football/inclusion_tags/team_detail.html:16
 msgid "History"
