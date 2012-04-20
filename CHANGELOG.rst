@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.1
+---
+#. French translations
+
 0.0.3
 -----
 #. Migrate management commands and templates from jmbo-airtel.

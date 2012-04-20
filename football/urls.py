@@ -119,6 +119,13 @@ urlpatterns += patterns('',
         'football.views.live_scores', 
         {}, 
         name='live-scores'
+    ),
+
+    url(
+        r'^football-live-commentary/$', 
+        'football.views.live_commentary', 
+        {}, 
+        name='live-commentary'
     )
 
 )   

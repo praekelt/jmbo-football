@@ -1,5 +1,7 @@
 import datetime
+from itertools import chain
 
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.db.models import Q
@@ -147,9 +149,19 @@ def league_dashboard_basic(request, slug):
 
 def league_dashboard_web(request, slug):
     league = get_object_or_404(League, slug=slug)
+
+    # Related items consist of galleries and posts
+    # xxx: the related item fetches assumes too much. Needs scrutiny.
+    galleries = league.get_related_items('league_galleries')
+    posts = league.get_related_items('post_leagues', 'reverse')
+    if galleries.count():
+        related_object_list = list(chain(galleries[:1], posts[:1]))
+    else:
+        related_object_list = posts[:2]
+
     extra = dict(
         object=league,
-        related_object_list=league.get_related_items('post_leagues', 'reverse')[:2],
+        related_object_list=related_object_list,
         logs=league_logs_widget(request, league.slug).content,
         fixtures=league_fixtures_widget(request, league.slug).content,
         results=league_results_widget(request, league.slug).content,
@@ -225,3 +237,13 @@ def live_scores(request):
         extra = {'live_scores': scores_array}
 
     return render_to_response('football/live_scores.html', extra, context_instance=RequestContext(request))
+
+def live_commentary(request):
+    import datetime
+    f = open('/tmp/commentary-%s' % datetime.datetime.now().strftime('%Y%m%d%H%M'), 'w')
+    try:
+        f.write(str(request))
+    finally:
+        f.close()
+    return HttpResponse('thank you')
+

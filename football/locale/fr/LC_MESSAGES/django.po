@@ -1,0 +1,169 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-04-18 21:04+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: templates/basic/football/league_dashboard.html:33
+#: templates/web/football/league_galleries.html:9
+#: templates/web/football/more_leagues_menu_ajax.html:11
+#: templates/web/football/top_leagues_menu_ajax.html:11
+msgid "Galleries"
+msgstr "Galeries"
+
+#: templates/basic/football/league_dashboard.html:36
+#: templates/web/football/more_leagues_menu_ajax.html:21
+msgid "More"
+msgstr "Plus"
+
+#: templates/basic/football/league_dashboard.html:39
+#: templates/basic/football/league_results.html:7
+#: templates/web/football/league_results_widget.html:5
+#: templates/web/football/more_leagues_menu_ajax.html:12
+#: templates/web/football/team_results_widget.html:5
+#: templates/web/football/top_leagues_menu_ajax.html:12
+msgid "Results"
+msgstr "Résultats"
+
+#: templates/basic/football/league_dashboard.html:42
+#: templates/basic/football/league_fixtures.html:8
+#: templates/web/football/league_fixtures_widget.html:5
+#: templates/web/football/more_leagues_menu_ajax.html:13
+#: templates/web/football/team_fixtures_widget.html:5
+#: templates/web/football/top_leagues_menu_ajax.html:13
+msgid "Fixtures"
+msgstr "Rencontres"
+
+#: templates/basic/football/league_dashboard.html:45
+#: templates/web/football/more_leagues_menu_ajax.html:14
+#: templates/web/football/top_leagues_menu_ajax.html:14
+msgid "Table"
+msgstr "Liste"
+
+#: templates/basic/football/league_fixtures.html:35
+#: templates/web/football/league_fixtures_widget.html:24
+#: templates/web/football/team_fixtures_widget.html:24
+msgid "No fixtures for this week"
+msgstr "Non rencontres"
+
+#: templates/basic/football/league_fixtures.html:40
+#: templates/basic/football/league_fixtures.html:45
+#: templates/basic/football/league_results.html:39
+#: templates/basic/football/league_results.html:44
+#: templates/web/football/league_fixtures_widget.html:29
+#: templates/web/football/league_fixtures_widget.html:34
+#: templates/web/football/league_results_widget.html:29
+#: templates/web/football/league_results_widget.html:34
+#: templates/web/football/team_fixtures_widget.html:29
+#: templates/web/football/team_fixtures_widget.html:34
+#: templates/web/football/team_results_widget.html:29
+#: templates/web/football/team_results_widget.html:34
+msgid "From"
+msgstr "A partir de"
+
+#: templates/basic/football/league_logs.html:7
+msgid "Tables"
+msgstr "Classements"
+
+#: templates/basic/football/league_logs.html:27
+#: templates/web/football/league_logs_widget.html:15
+msgid "Team"
+msgstr "Équipe"
+
+#: templates/basic/football/league_logs.html:28
+#: templates/web/football/league_logs_widget.html:16
+msgid "P"
+msgstr "J"
+
+#: templates/basic/football/league_logs.html:29
+#: templates/web/football/league_logs_widget.html:17
+msgid "W"
+msgstr "G"
+
+#: templates/basic/football/league_logs.html:30
+#: templates/web/football/league_logs_widget.html:18
+msgid "D"
+msgstr "N"
+
+#: templates/basic/football/league_logs.html:31
+#: templates/web/football/league_logs_widget.html:19
+msgid "L"
+msgstr "P"
+
+#: templates/basic/football/league_logs.html:32
+#: templates/web/football/league_logs_widget.html:20
+msgid "G"
+msgstr "B"
+
+#: templates/basic/football/league_logs.html:33
+#: templates/web/football/league_logs_widget.html:21
+msgid "PTS"
+msgstr "PTS"
+
+#: templates/basic/football/league_results.html:34
+#: templates/web/football/league_results_widget.html:24
+#: templates/web/football/team_results_widget.html:24
+msgid "No results for this week"
+msgstr "Pas de résultats pour cette semaine"
+
+#: templates/basic/football/live_scores.html:9
+#: templates/basic/football/inclusion_tags/live_scores.html:5
+msgid "Live scores"
+msgstr "Marcuage en direct"
+
+#: templates/basic/football/live_scores.html:15
+#: templates/basic/football/inclusion_tags/league_detail.html:10
+msgid "Teams"
+msgstr "Les équipes"
+
+#: templates/basic/football/live_scores.html:18
+msgid "Score"
+msgstr "Marque"
+
+#: templates/basic/football/live_scores.html:22
+msgid "Goals"
+msgstr "Buts"
+
+#: templates/basic/football/live_scores.html:41
+msgid "Cards"
+msgstr "Cartes"
+
+#: templates/basic/football/live_scores.html:59
+msgid "Match status"
+msgstr "Statut du match"
+
+#: templates/basic/football/team_players.html:9
+#: templates/web/football/team_players_widget.html:5
+msgid "Players"
+msgstr "Les joueurs"
+
+#: templates/basic/football/inclusion_tags/team_detail.html:16
+msgid "History"
+msgstr "Histoire"
+
+#: templates/basic/football/inclusion_tags/team_detail.html:23
+msgid "Statistics"
+msgstr "Stastique"
+
+#: templates/web/football/league_posts.html:9
+#: templates/web/football/more_leagues_menu_ajax.html:10
+#: templates/web/football/top_leagues_menu_ajax.html:10
+msgid "News"
+msgstr "Nouvelles"
+
+#: templates/web/football/team_dashboard.html:11
+msgid "Read more"
+msgstr "Lisez plus"
