@@ -1,8 +1,8 @@
 Changelog
 =========
 
-Next
-----
+0.1
+---
 #. French translations
 
 0.0.3
