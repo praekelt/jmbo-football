@@ -2,7 +2,6 @@
 
 <div class="league-logs league-logs-widget">
 
-<div class="table-wrapper">
 <table cellspacing="0">
 {% regroup league.logentries by group as group_list %}
 {% for group in group_list %} 
@@ -35,6 +34,5 @@
     {% endfor %}
 {% endfor %}
 </table>
-</div>
 
 </div>
