@@ -1,8 +1,8 @@
 Changelog
 =========
 
-next
-----
+0.2
+---
 #. Better batching of fixtures and results.
 
 0.1
