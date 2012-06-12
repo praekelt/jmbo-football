@@ -24,6 +24,7 @@
     <p class="none">{% blocktrans %}No fixtures for this week{% endblocktrans %}</p>
 {% endif %}
 
+{% if has_pagination %}
 <div class="pagination">
     {% if previous_week_start %}
         <a href="?league_slug={{ league.slug }}&amp;week_start={{ previous_week_start|date:"Y-m-d" }}" class="prev">{% trans "From" %} {{ previous_week_start|date:"d F" }}</a>
@@ -36,5 +37,6 @@
         &nbsp;
     {% endif %}
 </div>
+{% endif %}
 
 </div>

@@ -17,12 +17,9 @@ def _fixtures_batching(request, queryset, type='fixtures', window=1):
     this_week_start = datetime.date.today()
     this_week_start = this_week_start \
         - datetime.timedelta(days=this_week_start.weekday())
-
-    # Adjust week start depending on type
-    #if type == 'results':
-    #    this_week_start = this_week_start - datetime.timedelta(days=window*7)
-
+    
     # Get week's fixtures
+    initial = False
     week_start = None
     raw_week_start = request.GET.get('week_start', None)
     if raw_week_start:        
@@ -32,6 +29,7 @@ def _fixtures_batching(request, queryset, type='fixtures', window=1):
         except:
             pass
     if not week_start:
+        initial = True
         week_start = this_week_start
     week_end = week_start + datetime.timedelta(days=window*7)
     fixtures = queryset.filter(
@@ -39,24 +37,63 @@ def _fixtures_batching(request, queryset, type='fixtures', window=1):
         completed=(type == 'results') and True or False
     ).order_by('datetime')
 
-    # List of weeks for span of fixtures
-    weeks = []
-    span = queryset.order_by('-datetime')[:1]
-    if span.exists():
-        n = this_week_start
-        max_date = span[0].datetime.date()
-        while n <= max_date:
-            weeks.append(n)
-            n = n + datetime.timedelta(days=window*7)
+    # Previous and next needed for batching. The set may be sparse and large 
+    # hence all the queries.
+    previous_week_start = week_start - datetime.timedelta(days=window*7)
+    past_fixtures = queryset.filter(
+        datetime__lt=week_start,
+        completed=(type == 'results') and True or False
+    ).order_by('-datetime')[:1]
 
+    future_fixtures = queryset.filter(
+        datetime__gte=week_end,
+        completed=(type == 'results') and True or False
+    ).order_by('datetime')[:1]
+
+    # If initial view and no fixtures found then move away from this week until
+    # fixtures are found. Use that date as out initial date.
+    if not fixtures.exists():        
+        
+        # Concatenate for cleaner code. Reverse the order if we want results 
+        # since results should always be in the past.
+        li = list(past_fixtures) + list(future_fixtures)
+        if type == 'results':
+            li.reverse()
+
+        for fixture in li:
+            this_week_start = fixture.datetime.date()
+            this_week_start = this_week_start \
+                - datetime.timedelta(days=this_week_start.weekday())
+            week_start = this_week_start
+            week_end = week_start + datetime.timedelta(days=window*7)
+            fixtures = queryset.filter(
+                datetime__gte=week_start, datetime__lte=week_end,
+                completed=(type == 'results') and True or False
+            ).order_by('datetime')
+            if fixtures.exists():
+                previous_week_start = week_start - datetime.timedelta(days=window*7)
+                past_fixtures = queryset.filter(
+                    datetime__lt=week_start,
+                    completed=(type == 'results') and True or False
+                ).order_by('-datetime')[:1]        
+                future_fixtures = queryset.filter(
+                    datetime__gte=week_end,
+                    completed=(type == 'results') and True or False
+                ).order_by('datetime')[:1]
+                break
+    
     # Previous, next week
-    previous_week_start = None
-    next_week_start = None
-    if weeks:
-        previous_week_start = week_start - datetime.timedelta(days=window*7)
-        next_week_start = week_start + datetime.timedelta(days=window*7)
+    previous_week_start = next_week_start = None
+    if past_fixtures:
+        previous_week_start = past_fixtures[0].datetime.date()
+        previous_week_start = previous_week_start \
+            - datetime.timedelta(days=previous_week_start.weekday())
+    if future_fixtures:
+        next_week_start = future_fixtures[0].datetime.date()
+        next_week_start = next_week_start \
+            - datetime.timedelta(days=next_week_start.weekday())
 
-    return week_start, fixtures, weeks, previous_week_start, next_week_start
+    return week_start, fixtures, previous_week_start, next_week_start
 
 
 def league_logs(request, league_slug=None, template_name=None):
@@ -84,17 +121,17 @@ def league_fixtures(request, league_slug=None, template_name=None):
         league = leagues[0]
    
     qs = league.fixture_set.all()
-    week_start, fixtures, weeks, previous_week_start, next_week_start = \
+    week_start, fixtures, previous_week_start, next_week_start = \
         _fixtures_batching(request, qs, window=1)
 
     extra = dict(
         league=league,
         leagues=leagues,
         week_start=week_start,
-        weeks=weeks,
         fixtures=fixtures,        
         previous_week_start=previous_week_start,
-        next_week_start=next_week_start
+        next_week_start=next_week_start,
+        has_pagination=previous_week_start or next_week_start,
     )
     return render_to_response(template_name or 'football/league_fixtures.html', extra, context_instance=RequestContext(request))
 
@@ -109,17 +146,17 @@ def league_results(request, league_slug=None, template_name=None):
         league = leagues[0]
 
     qs = league.fixture_set.all()
-    week_start, fixtures, weeks, previous_week_start, next_week_start = \
+    week_start, fixtures, previous_week_start, next_week_start = \
         _fixtures_batching(request, qs, type='results', window=1)
 
     extra = dict(
         league=league,
         leagues=leagues,
         week_start=week_start,
-        weeks=weeks,
         fixtures=fixtures,        
         previous_week_start=previous_week_start,
-        next_week_start=next_week_start
+        next_week_start=next_week_start,
+        has_pagination=previous_week_start or next_week_start,
     )
     return render_to_response(template_name or 'football/league_results.html', extra, context_instance=RequestContext(request))
 
@@ -173,13 +210,12 @@ def team_fixtures_widget(request, team_slug):
     team = get_object_or_404(Team, slug=team_slug)
 
     qs = Fixture.objects.filter(Q(home_team=team)|Q(away_team=team))
-    week_start, fixtures, weeks, previous_week_start, next_week_start = \
+    week_start, fixtures, previous_week_start, next_week_start = \
         _fixtures_batching(request, qs, window=4)
 
     extra = dict(
         team=team,
         week_start=week_start,
-        weeks=weeks,
         fixtures=fixtures,        
         previous_week_start=previous_week_start,
         next_week_start=next_week_start
@@ -191,13 +227,12 @@ def team_results_widget(request, team_slug):
     team = get_object_or_404(Team, slug=team_slug)
 
     qs = Fixture.objects.filter(Q(home_team=team)|Q(away_team=team))
-    week_start, fixtures, weeks, previous_week_start, next_week_start = \
+    week_start, fixtures, previous_week_start, next_week_start = \
         _fixtures_batching(request, qs, type='results', window=4)
 
     extra = dict(
         team=team,
         week_start=week_start,
-        weeks=weeks,
         fixtures=fixtures,        
         previous_week_start=previous_week_start,
         next_week_start=next_week_start

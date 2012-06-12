@@ -1,6 +1,10 @@
 Changelog
 =========
 
+next
+----
+#. Better batching of fixtures and results.
+
 0.1
 ---
 #. French translations
