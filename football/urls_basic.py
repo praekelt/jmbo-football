@@ -1,13 +1,13 @@
+import warnings
+
 from football.urls import *
 
+warnings.warn(
+    "urls_basic.py to be deprecated since the layered decorator can resolve \
+    layer specific functions",
+    DeprecationWarning
+)
 
 urlpatterns += patterns('',
-
-    url(
-        r'^league-dashboard/(?P<slug>[\w-]+)/$', 
-        'football.views.league_dashboard_basic', 
-        {}, 
-        name='league_object_detail'
-    ),
-
+    
 )

@@ -25,6 +25,13 @@ urlpatterns += patterns('',
     ),
 
     url(
+        r'^league-dashboard/(?P<slug>[\w-]+)/$', 
+        'football.views.league_dashboard', 
+        {}, 
+        name='league_object_detail'
+    ),
+
+    url(
         r'^top-leagues-menu-ajax/$',
         'django.views.generic.simple.direct_to_template',
         {
@@ -112,6 +119,13 @@ urlpatterns += patterns('',
         'jmbo.generic.views.generic_object_detail',
         {'queryset':Team.permitted.all(), 'template_name':'football/team_players.html'},
         name='team-players'
+    ),
+
+    url(
+        r'^team-dashboard/(?P<slug>[\w-]+)/$', 
+        'football.views.team_dashboard', 
+        {}, 
+        name='team_object_detail'
     ),
 
     url(
