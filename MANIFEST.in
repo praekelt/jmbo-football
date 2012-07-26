@@ -8,3 +8,4 @@ recursive-include football/migrations *
 recursive-include football/static *
 recursive-include football/templates *
 recursive-include football/templatetags *
+recursive-include football/fixtures *

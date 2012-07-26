@@ -8,6 +8,7 @@ from django.db.models import Q
 from django.core.cache import cache
 
 from football.models import League, Team, Fixture
+from football.decorators import layered
 
 
 def _fixtures_batching(request, queryset, type='fixtures', window=1):
@@ -173,6 +174,11 @@ def league_results_widget(request, league_slug):
     return league_results(request, league_slug, 'football/league_results_widget.html')
 
 
+@layered
+def league_dashboard(request, slug):
+    return
+
+
 def league_dashboard_basic(request, slug):
     league = get_object_or_404(League, slug=slug)
     related_items = league.get_related_items('post_leagues', 'reverse')
@@ -247,6 +253,11 @@ def team_players_widget(request, team_slug):
         players=team.player_set.all().order_by('title'),
     )
     return render_to_response('football/team_players_widget.html', extra, context_instance=RequestContext(request))
+
+
+@layered
+def team_dashboard(request, slug):
+    return
 
 
 def team_dashboard_web(request, slug):
