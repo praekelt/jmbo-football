@@ -4,6 +4,7 @@ Changelog
 next
 ----
 #. Mark urls_web.py and urls_basic.py as deprecated. For the moment they exist for backwards compatibility.
+#. Use fixtures to define photo sizes.
 
 0.2
 ---

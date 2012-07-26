@@ -1,0 +1,18 @@
+[   
+    {
+        "pk": null, 
+        "model": "photologue.photosize", 
+        "fields": {
+            "name": "league_detail", 
+            "watermark": null, 
+            "increment_count": false, 
+            "effect": null, 
+            "crop": true, 
+            "height": 151, 
+            "width": 269, 
+            "upscale": false, 
+            "pre_cache": false, 
+            "quality": 90
+        }
+    }
+]
