@@ -1,6 +1,10 @@
 Changelog
 =========
 
+next
+----
+#. Pass required parameter to layered decorator.
+
 0.2.1
 -----
 #. Mark urls_web.py and urls_basic.py as deprecated. For the moment they exist for backwards compatibility.
