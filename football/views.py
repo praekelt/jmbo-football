@@ -174,7 +174,7 @@ def league_results_widget(request, league_slug):
     return league_results(request, league_slug, 'football/league_results_widget.html')
 
 
-@layered
+@layered(default='basic')
 def league_dashboard(request, slug):
     return
 
@@ -255,7 +255,7 @@ def team_players_widget(request, team_slug):
     return render_to_response('football/team_players_widget.html', extra, context_instance=RequestContext(request))
 
 
-@layered
+@layered(default='basic')
 def team_dashboard(request, slug):
     return
 

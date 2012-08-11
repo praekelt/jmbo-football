@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.2.2
+-----
+#. Pass required parameter to layered decorator.
+#. Minimum jmbo-foundry is now 0.5.1.
+
 0.2.1
 -----
 #. Mark urls_web.py and urls_basic.py as deprecated. For the moment they exist for backwards compatibility.
