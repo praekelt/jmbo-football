@@ -13,7 +13,7 @@ setup(
     install_requires = [
         'lxml',
         'django-football365',
-        'jmbo-foundry',
+        'jmbo-foundry>=0.5.1',
     ],
     include_package_data=True,
     tests_require=[
