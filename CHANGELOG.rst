@@ -1,9 +1,10 @@
 Changelog
 =========
 
-next
-----
+0.2.2
+-----
 #. Pass required parameter to layered decorator.
+#. Minimum jmbo-foundry is now 0.5.1.
 
 0.2.1
 -----
