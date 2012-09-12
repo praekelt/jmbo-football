@@ -1,8 +1,8 @@
 Changelog
 =========
 
-next
-----
+0.2.3
+-----
 #. Team dashboard for basic layer.
 
 0.2.2
