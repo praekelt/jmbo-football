@@ -260,6 +260,14 @@ def team_dashboard(request, slug):
     return
 
 
+def team_dashboard_basic(request, slug):
+    team = get_object_or_404(Team, slug=slug)
+    extra = dict(
+        object=team,
+    )
+    return render_to_response('football/team_dashboard.html', extra, context_instance=RequestContext(request))
+
+
 def team_dashboard_web(request, slug):
     team = get_object_or_404(Team, slug=slug)
     extra = dict(

@@ -1,6 +1,10 @@
 Changelog
 =========
 
+next
+----
+#. Team dashboard for basic layer.
+
 0.2.2
 -----
 #. Pass required parameter to layered decorator.
