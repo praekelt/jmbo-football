@@ -93,19 +93,8 @@ def _fixtures_batching(request, queryset, type='fixtures', window=1):
         next_week_start = future_fixtures[0].datetime.date()
         next_week_start = next_week_start \
             - datetime.timedelta(days=next_week_start.weekday())
-    
-    next_week = week_start + datetime.timedelta(days=7)
-    if week_start.month == next_week.month:
-        week_string = '%d-%d %s' % (week_start.day, 
-                                    next_week.day, 
-                                    datetime.datetime.strftime(next_week, '%b'))
-    else:
-        week_string = '%d %s - %d %s' % (week_start.day, 
-                                         datetime.datetime.strftime(week_start, '%b'), 
-                                         next_week.day, 
-                                         datetime.datetime.strftime(next_week, '%b'))
-        
-    return week_start, fixtures, previous_week_start, next_week_start, week_string
+
+    return week_start, fixtures, previous_week_start, next_week_start
 
 
 def league_logs(request, league_slug=None, template_name=None):
@@ -133,7 +122,7 @@ def league_fixtures(request, league_slug=None, template_name=None):
         league = leagues[0]
     last_week = datetime.datetime.now()-datetime.timedelta(days=7)
     qs = league.fixture_set.filter(datetime__gt=last_week)
-    week_start, fixtures, previous_week_start, next_week_start, week_string = \
+    week_start, fixtures, previous_week_start, next_week_start = \
         _fixtures_batching(request, qs, window=1)
     
     extra = dict(
@@ -144,7 +133,6 @@ def league_fixtures(request, league_slug=None, template_name=None):
         previous_week_start=previous_week_start,
         next_week_start=next_week_start,
         has_pagination=previous_week_start or next_week_start,
-        week_string=week_string
     )
     return render_to_response(template_name or 'football/league_fixtures.html', extra, context_instance=RequestContext(request))
 
@@ -159,7 +147,7 @@ def league_results(request, league_slug=None, template_name=None):
         league = leagues[0]
 
     qs = league.fixture_set.all()
-    week_start, fixtures, previous_week_start, next_week_start, week_string = \
+    week_start, fixtures, previous_week_start, next_week_start = \
         _fixtures_batching(request, qs, type='results', window=1)
 
     extra = dict(
@@ -170,7 +158,6 @@ def league_results(request, league_slug=None, template_name=None):
         previous_week_start=previous_week_start,
         next_week_start=next_week_start,
         has_pagination=previous_week_start or next_week_start,
-        week_string=week_string
     )
     return render_to_response(template_name or 'football/league_results.html', extra, context_instance=RequestContext(request))
 
@@ -229,7 +216,7 @@ def team_fixtures_widget(request, team_slug):
     team = get_object_or_404(Team, slug=team_slug)
 
     qs = Fixture.objects.filter(Q(home_team=team)|Q(away_team=team))
-    week_start, fixtures, previous_week_start, next_week_start, week_string = \
+    week_start, fixtures, previous_week_start, next_week_start = \
         _fixtures_batching(request, qs, window=4)
 
     extra = dict(
@@ -246,7 +233,7 @@ def team_results_widget(request, team_slug):
     team = get_object_or_404(Team, slug=team_slug)
 
     qs = Fixture.objects.filter(Q(home_team=team)|Q(away_team=team))
-    week_start, fixtures, previous_week_start, next_week_start, week_string = \
+    week_start, fixtures, previous_week_start, next_week_start = \
         _fixtures_batching(request, qs, type='results', window=4)
 
     extra = dict(
