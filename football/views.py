@@ -120,11 +120,11 @@ def league_fixtures(request, league_slug=None, template_name=None):
         league = get_object_or_404(League, slug=league_slug)
     elif leagues.exists():
         league = leagues[0]
-   
-    qs = league.fixture_set.all()
+    last_week = datetime.datetime.now()-datetime.timedelta(days=7)
+    qs = league.fixture_set.filter(datetime__gt=last_week)
     week_start, fixtures, previous_week_start, next_week_start = \
         _fixtures_batching(request, qs, window=1)
-
+    
     extra = dict(
         league=league,
         leagues=leagues,

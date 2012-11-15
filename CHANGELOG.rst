@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.2.6
+-----
+#. Filter for future fixtures.
+#. Order log entries by league group so that the 'regroup' tag works correctly.
+
 0.2.3
 -----
 #. Team dashboard for basic layer.
