@@ -49,7 +49,7 @@ class League(ModelBase):
 
     @property
     def logentries(self):
-        return self.logentry_set.all().order_by('group__position', '-points', '-goal_difference')
+        return self.logentry_set.all().order_by('group', 'group__position', '-points', '-goal_difference')
 
 
 class Team(ModelBase):
