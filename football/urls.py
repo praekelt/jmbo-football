@@ -1,10 +1,9 @@
 from django.conf.urls.defaults import patterns, url, include
 
-from foundry.urls import *
-
 from football.models import League, Team
 
-urlpatterns += patterns('',
+
+urlpatterns = patterns('',
 
     url(
         r'^league-logs/$',
