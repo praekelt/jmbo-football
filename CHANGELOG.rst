@@ -1,6 +1,10 @@
 Changelog
 =========
 
+next
+----
+#. Remove automatic `jmbo-foundry` url pattern includes.
+
 0.2.6
 -----
 #. Filter for future fixtures.
