@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.3.1
+-----
+#. `ModelAdmin.inline_instances` has been removed in Django 1.4. Replace with `get_inline_instances(request)`.
+
 0.3
 ---
 #. Remove automatic `jmbo-foundry` url pattern includes.
