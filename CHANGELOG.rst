@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.3.2
+-----
+#. Add an abbreviated title field to Team model.
+
 0.3.1
 -----
 #. `ModelAdmin.inline_instances` has been removed in Django 1.4. Replace with `get_inline_instances(request)`.
