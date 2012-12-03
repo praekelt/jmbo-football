@@ -53,6 +53,11 @@ class League(ModelBase):
 
 
 class Team(ModelBase):
+    abbreviated_title = models.CharField(
+        max_length=10,
+        null=True,
+        blank=True
+    )
     leagues = models.ManyToManyField(League)
     info = RichTextField(null=True, blank=True)
     history = RichTextField(null=True, blank=True)
