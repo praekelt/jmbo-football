@@ -27,7 +27,7 @@ class LeagueAdmin(ModelBaseAdmin):
 
     def get_formsets(self, request, obj=None):
         # No fieldsets for a new object
-        for inline in (obj is not None and self.inline_instances or []):
+        for inline in (obj is not None and self.get_inline_instances(request) or []):
             yield inline.get_formset(request, obj)
 
     def response_add(self, request, obj, post_url_continue='../%s/'):
