@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.3.3
+-----
+#. Update football_fetch command to allow a league and its league groups to have the same football365 service id without causing duplicates.
+
 0.3.2
 -----
 #. Add an abbreviated title field to Team model.
