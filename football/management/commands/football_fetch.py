@@ -50,18 +50,23 @@ class Command(BaseCommand):
                         team = Team.objects.get(Q(football365_teamcode=row['TEAMCODE']) | Q(title=row['TEAM']), leagues=league)
                     except (Team.DoesNotExist, Team.MultipleObjectsReturned):
                         continue
-                    LogEntry.objects.create(
-                        league=league,
-                        group=group,
-                        team=team,
-                        played=row['PLAYED'],
-                        won=row['WON'],
-                        drawn=row['DRAWN'],
-                        lost=row['LOST'],
-                        goals=row['GOALSFOR'],
-                        points=row['POINTS'],
-                        goal_difference=row['GOALDIFFERENCE']
-                    )
+                    try:
+                        logentry = LogEntry.objects.get(league=league, team=team)
+                        logentry.group = group
+                        logentry.save()
+                    except LogEntry.DoesNotExist:
+                       LogEntry.objects.create(
+                            league=league,
+                            group=group,
+                            team=team,
+                            played=row['PLAYED'],
+                            won=row['WON'],
+                            drawn=row['DRAWN'],
+                            lost=row['LOST'],
+                            goals=row['GOALSFOR'],
+                            points=row['POINTS'],
+                            goal_difference=row['GOALDIFFERENCE']
+                        ) 
 
     def fixtures_commit(self, call, data):        
         leagues = League.objects.filter(football365_di=call.football365_service_id)
@@ -103,14 +108,17 @@ class Command(BaseCommand):
                         continue
 
                     # Does the fixture already exist?
+                    # Don't filter by group as well - will cause duplicates
                     q = league.fixture_set.filter(
-                        group=group,
                         home_team=home_team, 
                         away_team=away_team,
                         datetime=row['STARTTIME']
                     )
                     if q.exists():
                         # Already stored
+                        if q[0].group != group:
+                            q[0].group = group
+                            q[0].save()
                         continue
 
                     # New fixture
@@ -171,8 +179,8 @@ class Command(BaseCommand):
                         continue
 
                     # Does the fixture already exist?
+                    # Don't filter by group as well - will cause duplicates
                     q = league.fixture_set.filter(
-                        group=group,
                         home_team=home_team, 
                         away_team=away_team,
                         datetime__gte=row['DATE'],
@@ -184,6 +192,7 @@ class Command(BaseCommand):
                         fixture.home_score = row['HOMETEAMSCORE']
                         fixture.away_score = row['AWAYTEAMSCORE']
                         fixture.completed = True
+                        fixture.group = group
                         fixture.save()               
                     else:
                         # New fixture - should not happen if fixtures are fetched daily
