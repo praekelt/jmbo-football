@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.db.models import Q
 from django.core.cache import cache
+from django.utils import timezone
 
 from football.models import League, Team, Fixture
 from football.decorators import layered
@@ -120,7 +121,7 @@ def league_fixtures(request, league_slug=None, template_name=None):
         league = get_object_or_404(League, slug=league_slug)
     elif leagues.exists():
         league = leagues[0]
-    last_week = datetime.datetime.now()-datetime.timedelta(days=7)
+    last_week = timezone.now()-datetime.timedelta(days=7)
     qs = league.fixture_set.filter(datetime__gt=last_week)
     week_start, fixtures, previous_week_start, next_week_start = \
         _fixtures_batching(request, qs, window=1)
